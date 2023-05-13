@@ -25,26 +25,10 @@ def sobel_edge_detection(image_path, blur_ksize=7, sobel_ksize=1, skipping_thres
     
     return img_sobel
 
-image_path = 'images/seed.png'
-gray = cv2.imread(image_path, 0)
-img_sobel = sobel_edge_detection(image_path, 7, 1, 30)
+image_path = './lane_detection/lane1.png'
 
-# plt.subplot(121),plt.imshow(gray, cmap = 'gray')
-# plt.title('Original Image'), plt.xticks([]), plt.yticks([])
-# plt.subplot(122),plt.imshow(img_sobel,cmap = 'gray')
-# plt.title('Sobel Image'), plt.xticks([]), plt.yticks([])
-# plt.show()
+img_sobel = sobel_edge_detection(image_path, 3, 1, 30)
 
-image_dir = 'data/'
-list_c = []
-for file in os.listdir(image_dir):
-    image_path = os.path.join(image_dir, file)
-    skipping_threshold = 30
-    img_sobel = sobel_edge_detection(image_path, skipping_threshold=skipping_threshold)
-    chuvi = 0
-    for i in range(img_sobel.shape[0]):
-        for j in range(img_sobel.shape[1]):
-            if img_sobel[i][j] >= skipping_threshold:
-                chuvi += 1
-    list_c.append(chuvi)
-plt.hist(list_c, 30, [0, 4000]); plt.show()
+plt.figure(figsize=(12,12))
+plt.imshow(img_sobel,cmap='gray')
+plt.show()
